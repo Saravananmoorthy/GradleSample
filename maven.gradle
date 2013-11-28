@@ -1,8 +1,9 @@
-//define the following properties in gradle.properties
-//mavenSnapshotUrl
-//mavenReleaseUrl
-//mavenDeployUser
-//mavenDeployPass
+/** define the following properties in gradle.properties
+mavenSnapshotUrl
+mavenReleaseUrl
+mavenDeployUser
+mavenDeployPass
+ **/
 
 apply plugin: 'maven'
 

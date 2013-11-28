@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply from: 'upload.gradle'
+apply from: 'maven.gradle'
 
 group = 'org.tsaikd.java'
 version = '0.1-SNAPSHOT'
