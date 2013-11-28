@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply from: 'upload.gradle'
+
+group = 'org.tsaikd.java'
+version = '0.1-SNAPSHOT'
+
+if (!hasProperty('mainClass')) {
+	ext.mainClass = 'org.tsaikd.java.Sample'
+}
+
+sourceCompatibility = '1.7'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+}
+
+List log = [
+	'commons-logging:commons-logging:+',
+	'org.slf4j:slf4j-log4j12:+'
+]
+
+dependencies {
+	testCompile 'junit:junit:+'
+	compile log
+}
+
+test {
+	testLogging.showStandardStreams = true
+}
