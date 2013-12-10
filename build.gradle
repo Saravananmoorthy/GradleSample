@@ -2,14 +2,14 @@ apply plugin: 'java'
 apply from: 'gradle/maven.gradle'
 
 group = 'org.tsaikd.java'
-version = '0.1-SNAPSHOT'
+version = '1.0' + (hasProperty('release') ? "" : "-SNAPSHOT")
 
 if (!hasProperty('mainClass')) {
 	ext.mainClass = 'org.tsaikd.java.Sample'
 }
 
 sourceCompatibility = '1.7'
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 repositories {
 	mavenCentral()
@@ -24,6 +24,15 @@ dependencies {
 	testCompile 'junit:junit:+'
 	compile log
 }
+
+/*
+war {
+	if (version.contains('SNAPSHOT')) {
+		java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
+		classifier = dateFormat.format(Calendar.getInstance().getTime())
+	}
+}
+*/
 
 test {
 	testLogging.showStandardStreams = true

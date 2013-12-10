@@ -1,3 +1,10 @@
+/** add to build.gradle
+apply from: 'gradle/eclipse-jar.gradle'
+buildscript {
+	apply from: 'gradle/eclipse-jar-buildscript.gradle'
+}
+ */
+
 apply plugin: 'eclipse'
 
 eclipse {
@@ -7,25 +14,9 @@ eclipse {
 	}
 }
 
-configurations {
-	providedCompile { description = 'Jars not to be included in the generated POM' }
-}
-
-sourceSets {
-	main {
-		compileClasspath = compileClasspath + configurations.providedCompile
-		runtimeClasspath = runtimeClasspath + configurations.providedCompile
-	}
-	test {
-		compileClasspath = compileClasspath + configurations.providedCompile
-		runtimeClasspath = runtimeClasspath + configurations.providedCompile
-	}
-}
-
-// add to javadoc and eclipse classpath
-gradle.taskGraph.beforeTask { task ->
-	if (task.name == 'javadoc')
-		task.options.classpath += configurations.providedCompile.resolve()
-	if (task.name == 'eclipseClasspath')
-		task.plusConfigurations += configurations.providedCompile
+configure(allprojects) {
+	apply plugin: 'propdeps'
+	apply plugin: 'propdeps-maven'
+	apply plugin: 'propdeps-idea'
+	apply plugin: 'propdeps-eclipse'
 }
