@@ -3,6 +3,11 @@ apply plugin: 'eclipse'
 apply plugin: 'eclipse-wtp'
 
 eclipse {
+	classpath {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+
 	wtp {
 		facet {
 			facet name: 'java', version: sourceCompatibility

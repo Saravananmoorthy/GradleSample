@@ -1,0 +1,31 @@
+apply plugin: 'eclipse'
+
+eclipse {
+	classpath {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+}
+
+configurations {
+	providedCompile { description = 'Jars not to be included in the generated POM' }
+}
+
+sourceSets {
+	main {
+		compileClasspath = compileClasspath + configurations.providedCompile
+		runtimeClasspath = runtimeClasspath + configurations.providedCompile
+	}
+	test {
+		compileClasspath = compileClasspath + configurations.providedCompile
+		runtimeClasspath = runtimeClasspath + configurations.providedCompile
+	}
+}
+
+// add to javadoc and eclipse classpath
+gradle.taskGraph.beforeTask { task ->
+	if (task.name == 'javadoc')
+		task.options.classpath += configurations.providedCompile.resolve()
+	if (task.name == 'eclipseClasspath')
+		task.plusConfigurations += configurations.providedCompile
+}
